@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@+id/diceImage_imageView_description"
-        android:src="@drawable/dice_1"/>
+        android:src="@drawable/empty_dice"/>
     <Button
         android:id="@+id/roll_button"
         android:background="@color/colorPrimaryDark"
@@ -22,6 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif"
+        android:padding="15dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
         android:textSize="25sp"
         android:text="@string/roll"/>
 
