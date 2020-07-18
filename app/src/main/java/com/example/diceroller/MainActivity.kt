@@ -2,10 +2,8 @@ package com.example.diceroller
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.view.get
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.activity_main.view.dice_image

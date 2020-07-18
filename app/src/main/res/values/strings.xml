@@ -2,4 +2,5 @@
     <string name="app_name">Dice Roller</string>
     <string name="roll">Let\'s Roll!</string>
     <string name="diceImage_imageView_description">The result when the dice rolls</string>
+    <string name="light_mode">Light Mode</string>
 </resources>
