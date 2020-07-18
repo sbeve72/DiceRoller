@@ -18,18 +18,20 @@
         android:paddingTop="200sp"
         app:srcCompat="@drawable/empty_dice" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/roll_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/colorPrimary"
-        android:padding="15dp"
         android:text="@string/roll"
+        app:backgroundTint="@color/button_color"
+        app:rippleColor="@color/button_ripple"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/textLight"
-        android:textSize="25sp" />
+        android:padding="@dimen/Container_Button_Padding"
+        android:textColor="@color/white"
+        android:textSize="25sp"/>
+
 
 
 </LinearLayout>
