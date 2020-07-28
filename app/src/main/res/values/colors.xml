@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3a3a3a</color>
+    <color name="colorPrimary">#DDDDDD</color>
     <color name="colorPrimaryDark">#222222</color>
-    <color name="colorAccent">#868b8f</color>
+    <color name="colorAccent">#FB2828</color>
     <color name="textLight">#f2f2f2</color>
-    <color name="button_ripple">#79FF8585</color>
-    <color name="button_color">#C34141</color>
-    <color name="white">#eeffffff</color>
+    <color name="textDark">#2f2f2f</color>
+    <color name="button_ripple">#A9FF6D6D</color>
+    <color name="bold_button_color">#C34141</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="top_face">#d33</color>
+    <color name="right_face">#a22</color>
+    <color name="left_face">#901919</color>
+    <color name="base">#e44</color>
+    <color name="right_edge">#C63535</color>
+    <color name="left_edge">#CD2D2D</color>
+    <color name="bottom_edge">#AF2929</color>
+    <color name="corner">#EA5757</color>
+
 </resources>
