@@ -1,23 +1,78 @@
 package com.example.diceroller
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.*
-import androidx.core.view.get
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.activity_main.view.dice_image
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 
 class MainActivity : AppCompatActivity() {
     lateinit var diceImage: ImageView
+    lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.activity_toolbar))
+
         val rollButton: Button = findViewById(R.id.roll_button)
+
         diceImage = findViewById(R.id.dice_image)
-        rollButton.setOnClickListener() {
+        rollButton.setOnClickListener {
             rollDice()
         }
+
+        sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
+
+        when (sharedPreferences.getString("Night_Mode_State", getString(R.string.follow_system))) {
+            getString(R.string.follow_system) -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+            getString(R.string.light_mode) -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            getString(R.string.dark_mode) -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+        }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        super.onCreateOptionsMenu(menu)
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.actionbar, menu)
+        when (sharedPreferences.getString("Night_Mode_State", getString(R.string.follow_system))) {
+            getString(R.string.follow_system) -> menu.findItem(R.id.follow_system).isChecked = true
+            getString(R.string.light_mode) -> menu.findItem(R.id.light_mode).isChecked = true
+            getString(R.string.dark_mode) -> menu.findItem(R.id.dark_mode).isChecked = true
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.follow_system -> {
+                sharedPreferences.edit()
+                    .putString("Night_Mode_State", getString(R.string.follow_system)).apply()
+                if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) recreate()
+            }
+            R.id.light_mode -> {
+                sharedPreferences.edit()
+                    .putString("Night_Mode_State", getString(R.string.light_mode)).apply()
+                if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) recreate()
+            }
+            R.id.dark_mode -> {
+                sharedPreferences.edit()
+                    .putString("Night_Mode_State", getString(R.string.dark_mode)).apply()
+                if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) recreate()
+            }
+        }
+        return true
     }
 
     private fun rollDice() {
@@ -27,7 +82,8 @@ class MainActivity : AppCompatActivity() {
             3 -> diceImage.setImageResource(R.drawable.dice_3)
             4 -> diceImage.setImageResource(R.drawable.dice_4)
             5 -> diceImage.setImageResource(R.drawable.dice_5)
-            else -> diceImage.setImageResource(R.drawable.dice_6)
+            6 -> diceImage.setImageResource(R.drawable.dice_6)
         }
     }
+
 }
