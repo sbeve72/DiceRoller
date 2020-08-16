@@ -10,14 +10,17 @@
                     android:id="@+id/follow_system"
                     android:enabled="true"
                     android:title="@string/follow_system"
+                    android:onClick="sharedPreferencesSaver"
                     android:checked="true"/>
                 <item
                     android:id="@+id/light_mode"
                     android:enabled="true"
+                    android:onClick="sharedPreferencesSaver"
                     android:title="@string/light_mode"/>
                 <item
                     android:id="@+id/dark_mode"
                     android:enabled="true"
+                    android:onClick="sharedPreferencesSaver"
                     android:title="@string/dark_mode"/>
             </group>
         </menu>
