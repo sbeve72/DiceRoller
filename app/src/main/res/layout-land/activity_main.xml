@@ -28,13 +28,13 @@
         android:id="@+id/dice_image"
         android:layout_width="258dp"
         android:layout_height="258dp"
-        android:contentDescription="@+id/diceImage_imageView_description"
+        android:contentDescription="@string/diceImage_imageView_description"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/roll_button"
+        app:layout_constraintEnd_toStartOf="@id/roll_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:srcCompat="@drawable/empty_dice" />
 
     <Button
@@ -51,8 +51,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/dice_image"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintStart_toEndOf="@id/dice_image"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
