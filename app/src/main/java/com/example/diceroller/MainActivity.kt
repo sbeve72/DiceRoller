@@ -10,20 +10,23 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.DataBindingUtil
+import com.example.diceroller.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityMainBinding
     private lateinit var diceImage: ImageView
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.activity_toolbar))
+//        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.activityToolbar)
 
-        val rollButton: Button = findViewById(R.id.roll_button)
-        diceImage = findViewById(R.id.dice_image)
+        diceImage = binding.diceImage
+        val rollButton: Button = binding.rollButton
         rollButton.setOnClickListener {
             rollDice()
         }
