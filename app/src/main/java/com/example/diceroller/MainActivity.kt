@@ -17,18 +17,26 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var diceImage: ImageView
     private lateinit var sharedPreferences: SharedPreferences
+    private var numberShown: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(binding.activityToolbar)
 
         diceImage = binding.diceImage
+
+        numberShown = savedInstanceState?.getInt("value")?: 0
+
+        if (numberShown != 0) {
+            imageResourceSetter(numberShown)
+        }
+
         val rollButton: Button = binding.rollButton
         rollButton.setOnClickListener {
-            rollDice()
+            diceRoller()
+            imageResourceSetter(numberShown)
         }
 
         sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
@@ -50,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+
     fun sharedPreferencesSaver(item: MenuItem) {
         val editor = sharedPreferences.edit()
         editor.putInt("clickedItem", item.itemId)
@@ -57,14 +66,24 @@ class MainActivity : AppCompatActivity() {
         recreate()
     }
 
-    private fun rollDice() {
-        when ((1..6).random()) {
+    private fun diceRoller() {
+        numberShown = (1..6).random()
+    }
+
+    private fun imageResourceSetter(numberShown: Int) {
+        when (numberShown) {
             1 -> diceImage.setImageResource(R.drawable.dice_1)
             2 -> diceImage.setImageResource(R.drawable.dice_2)
             3 -> diceImage.setImageResource(R.drawable.dice_3)
             4 -> diceImage.setImageResource(R.drawable.dice_4)
             5 -> diceImage.setImageResource(R.drawable.dice_5)
             6 -> diceImage.setImageResource(R.drawable.dice_6)
+            0 -> diceImage.setImageResource(R.drawable.empty_dice)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("value", numberShown)
     }
 }
