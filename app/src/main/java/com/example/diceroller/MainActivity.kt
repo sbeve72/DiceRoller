@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         diceImage = binding.diceImage
 
-        numberShown = savedInstanceState?.getInt("value")?: 0
+        numberShown = savedInstanceState?.getInt("value") ?: 0
 
         if (numberShown != 0) {
             imageResourceSetter(numberShown)
@@ -48,22 +48,18 @@ class MainActivity : AppCompatActivity() {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.actionbar, menu)
 
-        menu.findItem(sharedPreferences.getInt("clickedItem", R.id.follow_system)).isChecked = true
-        when (sharedPreferences.getInt("clickedItem", R.id.follow_system)) {
-            R.id.follow_system -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            R.id.light_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            R.id.dark_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-
+        val clickedItem = sharedPreferences.getInt("clickedItem", R.id.follow_system)
+        menu.findItem(clickedItem).isChecked = true
+        themeChanger(clickedItem)
         return true
     }
 
 
     fun sharedPreferencesSaver(item: MenuItem) {
+        themeChanger(item.itemId)
         val editor = sharedPreferences.edit()
         editor.putInt("clickedItem", item.itemId)
         editor.apply()
-        recreate()
     }
 
     private fun diceRoller() {
@@ -85,5 +81,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("value", numberShown)
+    }
+
+    private fun themeChanger(menuItemId: Int) {
+        when (menuItemId) {
+            R.id.follow_system -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            R.id.light_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            R.id.dark_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
     }
 }
