@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         diceImage = binding.diceImage
 
-        numberShown = savedInstanceState?.getInt("value") ?: 0
+        numberShown = savedInstanceState?.getInt("value")?: 0
 
         if (numberShown != 0) {
             imageResourceSetter(numberShown)
@@ -48,18 +48,18 @@ class MainActivity : AppCompatActivity() {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.actionbar, menu)
 
-        val clickedItem = sharedPreferences.getInt("clickedItem", R.id.follow_system)
-        menu.findItem(clickedItem).isChecked = true
-        themeChanger(clickedItem)
+        val clickedItemId = sharedPreferences.getInt("clickedItemId", R.id.follow_system)
+        menu.findItem(clickedItemId).isChecked = true
+        themeChanger(menu.findItem(clickedItemId))
         return true
     }
 
 
     fun sharedPreferencesSaver(item: MenuItem) {
-        themeChanger(item.itemId)
         val editor = sharedPreferences.edit()
-        editor.putInt("clickedItem", item.itemId)
+        editor.putInt("clickedItemId", item.itemId)
         editor.apply()
+        themeChanger(item)
     }
 
     private fun diceRoller() {
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             4 -> diceImage.setImageResource(R.drawable.dice_4)
             5 -> diceImage.setImageResource(R.drawable.dice_5)
             6 -> diceImage.setImageResource(R.drawable.dice_6)
-            0 -> diceImage.setImageResource(R.drawable.empty_dice)
+            else -> diceImage.setImageResource(R.drawable.empty_dice)
         }
     }
 
@@ -83,8 +83,9 @@ class MainActivity : AppCompatActivity() {
         outState.putInt("value", numberShown)
     }
 
-    private fun themeChanger(menuItemId: Int) {
-        when (menuItemId) {
+    private fun themeChanger(menuItem: MenuItem) {
+        menuItem.isChecked = true
+        when (menuItem.itemId) {
             R.id.follow_system -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             R.id.light_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             R.id.dark_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
