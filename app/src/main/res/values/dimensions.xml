@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="Container_Button_Padding">10dp</dimen>
-    <dimen name="diceLength">200dp</dimen>
-    <dimen name="diceBreadth">160dp</dimen>
+    <dimen name="container_button_padding">10dp</dimen>
+    <dimen name="dice_length">200dp</dimen>
+    <dimen name="dice_breadth">160dp</dimen>
 </resources>

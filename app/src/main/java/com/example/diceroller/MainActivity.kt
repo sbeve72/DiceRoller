@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.databinding.DataBindingUtil
 import com.example.diceroller.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +21,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setSupportActionBar(binding.activityToolbar)
 
         diceImage = binding.diceImage
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreateOptionsMenu(menu)
 
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.actionbar, menu)
+        inflater.inflate(R.menu.action_bar, menu)
 
         val clickedItemId = sharedPreferences.getInt("clickedItemId", R.id.follow_system)
         menu.findItem(clickedItemId).isChecked = true
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun themeChanger(menuItem: MenuItem) {
-        menuItem.isChecked = true
+//        menuItem.isChecked = true
         when (menuItem.itemId) {
             R.id.follow_system -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             R.id.light_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
