@@ -20,14 +20,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.activityToolbar)
-
         diceImage = binding.diceImage
 
-        numberShown = savedInstanceState?.getInt("value")?: 0
+        numberShown = savedInstanceState?.getInt("value") ?: 0
 
         if (numberShown != 0) {
             imageResourceSetter(numberShown)
@@ -54,12 +52,31 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId != R.id.follow_system && item.itemId != R.id.light_mode && item.itemId != R.id.dark_mode) return super.onOptionsItemSelected(item)
+        sharedPreferencesSaver(item)
+        themeChanger(item)
+        item.isChecked = true
+        return true
+    }
 
-    fun sharedPreferencesSaver(item: MenuItem) {
+    private fun sharedPreferencesSaver(item: MenuItem) {
         val editor = sharedPreferences.edit()
         editor.putInt("clickedItemId", item.itemId)
         editor.apply()
-        themeChanger(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("value", numberShown)
+    }
+
+    private fun themeChanger(menuItem: MenuItem) {
+        when (menuItem.itemId) {
+            R.id.follow_system -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            R.id.light_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            R.id.dark_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
     }
 
     private fun diceRoller() {
@@ -75,20 +92,6 @@ class MainActivity : AppCompatActivity() {
             5 -> diceImage.setImageResource(R.drawable.dice_5)
             6 -> diceImage.setImageResource(R.drawable.dice_6)
             else -> diceImage.setImageResource(R.drawable.empty_dice)
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt("value", numberShown)
-    }
-
-    private fun themeChanger(menuItem: MenuItem) {
-//        menuItem.isChecked = true
-        when (menuItem.itemId) {
-            R.id.follow_system -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            R.id.light_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            R.id.dark_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
 }
