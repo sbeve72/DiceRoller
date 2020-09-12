@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
-        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
