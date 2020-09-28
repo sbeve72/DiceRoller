@@ -9,8 +9,8 @@ android {
         applicationId "com.example.diceroller"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
-        versionName kotlin_version
+        versionCode 5
+        versionName "2.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
