@@ -11,12 +11,14 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.diceroller.databinding.ActivityMainBinding
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var diceImage: ImageView
     private lateinit var sharedPreferences: SharedPreferences
-    private var numberShown: Int = 0
+    private var diceFaceNumber: Int = 0
+    private var clickedItemId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,40 +26,41 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.activityToolbar)
         diceImage = binding.diceImage
+        sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
 
-        numberShown = savedInstanceState?.getInt("value") ?: 0
+        diceFaceNumber = savedInstanceState?.getInt("value") ?: 0
+        clickedItemId = sharedPreferences.getInt("clickedItemId", R.id.follow_system)
 
-        if (numberShown != 0) {
-            imageResourceSetter(numberShown)
+        themeChanger(clickedItemId)
+
+        if (diceFaceNumber != 0) {
+            imageResourceSetter(diceFaceNumber)
         }
 
         val rollButton: Button = binding.rollButton
         rollButton.setOnClickListener {
             diceRoller()
-            imageResourceSetter(numberShown)
+            imageResourceSetter(diceFaceNumber)
         }
 
-        sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
-
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.action_bar, menu)
-
-        val clickedItemId = sharedPreferences.getInt("clickedItemId", R.id.follow_system)
         menu.findItem(clickedItemId).isChecked = true
-        themeChanger(menu.findItem(clickedItemId))
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId != R.id.follow_system && item.itemId != R.id.light_mode && item.itemId != R.id.dark_mode) return super.onOptionsItemSelected(item)
-        sharedPreferencesSaver(item)
-        themeChanger(item)
-        item.isChecked = true
-        return true
+        if (item.itemId == R.id.follow_system || item.itemId == R.id.light_mode || item.itemId == R.id.dark_mode) {
+            sharedPreferencesSaver(item)
+            themeChanger(item.itemId)
+            item.isChecked = true
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun sharedPreferencesSaver(item: MenuItem) {
@@ -68,11 +71,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("value", numberShown)
+        outState.putInt("value", diceFaceNumber)
     }
 
-    private fun themeChanger(menuItem: MenuItem) {
-        when (menuItem.itemId) {
+    private fun themeChanger(menuItemId: Int) {
+        when (menuItemId) {
             R.id.follow_system -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             R.id.light_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             R.id.dark_mode -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -80,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun diceRoller() {
-        numberShown = (1..6).random()
+        diceFaceNumber = (1..6).random()
     }
 
     private fun imageResourceSetter(numberShown: Int) {
