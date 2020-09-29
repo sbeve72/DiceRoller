@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.action_bar, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.change_theme -> {

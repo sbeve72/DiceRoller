@@ -10,13 +10,12 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/activity_toolbar"
-        style="@style/Widget.MaterialComponents.AppBarLayout.Primary"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primary_dark"
         android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_name" />
 
     <ImageView

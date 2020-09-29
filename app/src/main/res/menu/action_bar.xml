@@ -3,24 +3,5 @@
     <item
         android:id="@+id/change_theme"
         android:title="@string/change_theme">
-        <!--        <menu>-->
-        <!--            <group-->
-        <!--                android:checkableBehavior="single"-->
-        <!--                android:enabled="true"-->
-        <!--                android:visible="true">-->
-        <!--                <item-->
-        <!--                    android:id="@+id/follow_system"-->
-        <!--                    android:enabled="true"-->
-        <!--                    android:title="@string/follow_system" />-->
-        <!--                <item-->
-        <!--                    android:id="@+id/light_mode"-->
-        <!--                    android:enabled="true"-->
-        <!--                    android:title="@string/light_mode" />-->
-        <!--                <item-->
-        <!--                    android:id="@+id/dark_mode"-->
-        <!--                    android:enabled="true"-->
-        <!--                    android:title="@string/dark_mode" />-->
-        <!--            </group>-->
-        <!--        </menu>-->
     </item>
 </menu>
