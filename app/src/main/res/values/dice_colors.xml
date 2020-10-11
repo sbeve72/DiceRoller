@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bold_button_text_color">#eeeeee</color>
+    <color name="bold_button_ripple">#A9FF6D6D</color>
+    <color name="bold_button_color">#C34141</color>
+    <color name="top_face">#d33</color>
+    <color name="right_face">#a22</color>
+    <color name="left_face">#901919</color>
+    <color name="base">#e44</color>
+    <color name="right_edge">#C63535</color>
+    <color name="left_edge">#CD2D2D</color>
+    <color name="bottom_edge">#AF2929</color>
+    <color name="corner">#EA5757</color>
+</resources>
