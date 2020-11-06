@@ -15,28 +15,24 @@ import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var sharedPreferences: SharedPreferences
-    private var diceFaceNumber: Int = 0
+    private var diceFaceNumber = 0
     private var selectedThemeOption by Delegates.notNull<Int>()
-    private lateinit var changeThemeDialog: MaterialAlertDialogBuilder
+    private lateinit var alertDialogBuilder: MaterialAlertDialogBuilder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(activity_toolbar)
-
+        alertDialogBuilder = MaterialAlertDialogBuilder(this)
         sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
+
         diceFaceNumber = savedInstanceState?.getInt("value") ?: 0
-
         selectedThemeOption = sharedPreferences.getInt("selected_theme", 0)
+
         themeChanger(selectedThemeOption)
-
-        changeThemeDialog = MaterialAlertDialogBuilder(this)
-        changeThemeDialog.setTitle(R.string.change_theme)
-
         if (diceFaceNumber != 0) {
             imageResourceSetter(diceFaceNumber)
         }
-
         roll_button.setOnClickListener(this)
 
     }
@@ -60,14 +56,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.change_theme -> {
-                changeThemeDialog.setSingleChoiceItems(
-                    arrayOf("Follow System", "Light Mode", "Dark Mode"),
-                    sharedPreferences.getInt("selected_theme", 0)
-                ) { dialogInterface, selectedOption ->
-                    selectedThemeInfoSaver(selectedOption)
-                    themeChanger(selectedOption)
-                    dialogInterface.dismiss()
-                }.show()
+                alertDialogBuilder
+                    .setTitle(R.string.change_theme)
+                    .setSingleChoiceItems(
+                        arrayOf("Follow System", "Light Mode", "Dark Mode"),
+                        sharedPreferences.getInt("selected_theme", 0)
+                    ) { dialogInterface, selectedOption ->
+                        selectedThemeInfoSaver(selectedOption)
+                        themeChanger(selectedOption)
+                        dialogInterface.dismiss()
+                    }
+                    .create()
+                    .show()
             }
         }
         return super.onOptionsItemSelected(item)
